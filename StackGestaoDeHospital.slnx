@@ -1,3 +1,6 @@
 <Solution>
-  <Project Path="StackGestaoDeHospital.csproj" />
+  <Project Path="StackGestaoDeHospital.Controller/StackGestaoDeHospital.Controller.csproj" />
+  <Project Path="StackGestaoDeHospital.DataBase/StackGestaoDeHospital.DataBase.csproj" />
+  <Project Path="StackGestaoDeHospital.Model/StackGestaoDeHospital.Model.csproj" />
+  <Project Path="StackGestaoDeHospital.View\StackGestaoDeHospital.View.csproj" />
 </Solution>
