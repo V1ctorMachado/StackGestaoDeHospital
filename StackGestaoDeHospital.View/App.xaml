@@ -1,8 +1,7 @@
-﻿<Application x:Class="StackGestaoDeHospital.App"
+﻿<Application x:Class="StackGestaoDeHospital.View.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:StackGestaoDeHospital"
-             StartupUri="MainWindow.xaml">
+             xmlns:local="clr-namespace:StackGestaoDeHospital.View">
     <Application.Resources>
          
     </Application.Resources>

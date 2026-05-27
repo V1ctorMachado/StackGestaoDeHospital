@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using StackGestaoDeHospital.DataBase.Configurations;
 using StackGestaoDeHospital.Model;
 
 namespace StackGestaoDeHospital.DataBase
@@ -10,13 +11,16 @@ namespace StackGestaoDeHospital.DataBase
         {
         }
 
-        
+        public DbSet<Departamento> Departamentos { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.HasDefaultSchema("GESTAOHOSPITAL");
+
             base.OnModelCreating(modelBuilder);
 
-            // Configurações adicionais do modelo podem ser adicionadas aqui
+            // Aplicar configurações das entidades
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(HospitalDbContext).Assembly);
         }
     }
 }

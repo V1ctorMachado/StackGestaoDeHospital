@@ -3,4 +3,10 @@
   <Project Path="StackGestaoDeHospital.DataBase/StackGestaoDeHospital.DataBase.csproj" />
   <Project Path="StackGestaoDeHospital.Model/StackGestaoDeHospital.Model.csproj" />
   <Project Path="StackGestaoDeHospital.View\StackGestaoDeHospital.View.csproj" />
+  <SolutionItems>
+    <Item Path="appsettings.json" />
+    <Item Path=".env" />
+    <Item Path=".gitignore" />
+    <Item Path="README.md" />
+  </SolutionItems>
 </Solution>

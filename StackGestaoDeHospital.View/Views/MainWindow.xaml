@@ -1,0 +1,24 @@
+﻿<Window x:Class="StackGestaoDeHospital.View.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:StackGestaoDeHospital.View"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <StackPanel Margin="0,16,16,0" HorizontalAlignment="Right" VerticalAlignment="Top">
+
+            <Label Content="Seletor de Departamento" Padding="0,0,0,4" />
+
+            <ComboBox
+                Width="220"
+                Height="32"
+                ItemsSource="{Binding ListaDepartamentos}"
+                DisplayMemberPath="Nome"
+                SelectedItem="{Binding DepartamentoSelecionado}" 
+            />
+
+        </StackPanel>
+    </Grid>
+</Window>

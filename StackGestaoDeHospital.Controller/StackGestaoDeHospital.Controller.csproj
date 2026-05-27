@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\StackGestaoDeHospital.DataBase\StackGestaoDeHospital.DataBase.csproj" />
+  </ItemGroup>
+
 </Project>

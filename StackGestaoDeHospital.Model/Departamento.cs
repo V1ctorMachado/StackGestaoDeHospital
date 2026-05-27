@@ -4,7 +4,7 @@ using System.Text;
 
 namespace StackGestaoDeHospital.Model
 {
-    class Departamento
+    public class Departamento
     {
         public int Id { get; set; }
         public string Nome { get; set; }
