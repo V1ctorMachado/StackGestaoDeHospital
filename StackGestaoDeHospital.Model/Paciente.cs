@@ -4,15 +4,10 @@ using System.Text;
 
 namespace StackGestaoDeHospital.Model
 {
-    class Paciente : Pessoa
+    public class Paciente : Pessoa
     {
 
-        public string NumeroCarteirinha { get; set; }
-        public string PlanoSaude { get; set; }
-        public Paciente(string numeroCarteirinha, string planoSaude)
-        {
-            NumeroCarteirinha = numeroCarteirinha;
-            PlanoSaude = planoSaude;
-        }
+        public string NumeroCarteirinha { get; set; } = string.Empty;
+        public string PlanoSaude { get; set; } = string.Empty;
     }
 }
