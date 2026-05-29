@@ -4,13 +4,9 @@ using System.Text;
 
 namespace StackGestaoDeHospital.Model
 {
-    class Medico : Funcionario
+    public class Medico : Funcionario
     {
 
-        public string CRM { get; set; }
-        public Medico(string crm)
-        {
-            CRM = crm;
-        }
+        public string CRM { get; set; } = string.Empty;
     }
 }

@@ -4,10 +4,11 @@ using System.Text;
 
 namespace StackGestaoDeHospital.Model
 {
-    class Atendimento
+    public class Atendimento
     {
+        public int Id { get; set; }
         public DateTime Data { get; set; }
-        public string Queixa { get; set; }
+        public string Queixa { get; set; } = string.Empty;
         public string? Diagnostico { get; set; }
         public int Status { get; set; }
     }

@@ -4,12 +4,12 @@ using System.Text;
 
 namespace StackGestaoDeHospital.Model
 {
-    class Pessoa
+    public abstract class Pessoa
     {
         public int Id { get; set; }
-        public string Nome { get; set; }
-        public string Sobrenome { get; set; }
-        public string CPF { get; set; }
+        public string Nome { get; set; } = string.Empty;
+        public string Sobrenome { get; set; } = string.Empty;
+        public string CPF { get; set; } = string.Empty;
         public DateTime DataNascimento { get; set; }
 
 
