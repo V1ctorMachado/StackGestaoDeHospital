@@ -4,14 +4,10 @@ using System.Text;
 
 namespace StackGestaoDeHospital.Model
 {
-    class Enfermeiro : Funcionario
+    public class Enfermeiro : Funcionario
     {
 
-        public string CRE { get; set; }
-        public Enfermeiro(string Cre)
-        {
-            CRE = Cre;
-        }
+        public string CRE { get; set; } = string.Empty;
 
     }
 }
