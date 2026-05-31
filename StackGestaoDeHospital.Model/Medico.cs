@@ -4,7 +4,7 @@ using System.Text;
 
 namespace StackGestaoDeHospital.Model
 {
-    class Medico : Funcionario
+    public class Medico : Funcionario
     {
 
         public string CRM { get; set; }

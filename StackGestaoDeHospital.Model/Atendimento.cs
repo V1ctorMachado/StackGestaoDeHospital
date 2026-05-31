@@ -4,7 +4,7 @@ using System.Text;
 
 namespace StackGestaoDeHospital.Model
 {
-    class Atendimento
+    public class Atendimento
     {
         public DateTime Data { get; protected set; }
         public string Queixa { get; protected set; }
