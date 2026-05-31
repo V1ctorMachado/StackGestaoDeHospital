@@ -6,6 +6,7 @@ namespace StackGestaoDeHospital.Model
 {
     public class Atendimento
     {
+        public int Id { get; set; }
         public DateTime Data { get; protected set; }
         public string Queixa { get; protected set; }
         public string? Diagnostico { get; protected set; }
@@ -14,6 +15,7 @@ namespace StackGestaoDeHospital.Model
         public Enfermeiro Enfermeiro { get; protected set; }
         public Medico Medico { get; protected set; }
 
+        public Atendimento() { }
         public Atendimento(string queixa, string? diagnostico, int status, Especialidade especialidade, Enfermeiro enfermeiro, Medico medico)
         {
             Data = DateTime.Now;

@@ -32,10 +32,6 @@ namespace StackGestaoDeHospital.View
         {
             var connectionString = Configuration.GetConnectionString("DefaultConnection");
 
-            var dbPassword = Environment.GetEnvironmentVariable("DB_PASSWORD");
-
-            connectionString = connectionString.Replace("{DB_PASSWORD}", dbPassword);
-
             var options = new DbContextOptionsBuilder<HospitalDbContext>()
                 .UseSqlServer(connectionString)
                 .Options;

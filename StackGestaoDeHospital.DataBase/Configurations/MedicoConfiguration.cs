@@ -17,7 +17,12 @@ namespace StackGestaoDeHospital.DataBase.Configurations
                 .HasMaxLength(20)
                 .IsRequired();
 
-            builder.HasIndex(medico => medico.CRM).IsUnique();
+            builder.HasIndex(medico => medico.CRM)
+                .IsUnique();
+
+            builder.HasMany(medico => medico.Especialidades)
+                .WithMany()
+                .UsingEntity("MedicoEspecialidade");
         }
     }
 }
