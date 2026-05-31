@@ -23,12 +23,12 @@ namespace StackGestaoDeHospital.Model
         ONegativo = 8
     }
 
-    public enum StatusAtendimento
+    public enum StatusAtendimentoEnum
     {
         Aberto = 1,
-        EmAtendimento = 2,
-        Concluido = 3,
-        Cancelado = 4
+        EmTriagem = 2,
+        EmAtendimento = 3,
+        Concluido = 4
     }
 
     public enum TipoLeito

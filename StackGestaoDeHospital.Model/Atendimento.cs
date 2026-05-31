@@ -10,21 +10,19 @@ namespace StackGestaoDeHospital.Model
         public DateTime Data { get; protected set; }
         public string Queixa { get; protected set; }
         public string? Diagnostico { get; protected set; }
-        public int Status { get; protected set; }
-        public Especialidade Especialidade { get; protected set; }
-        public Enfermeiro Enfermeiro { get; protected set; }
-        public Medico Medico { get; protected set; }
+        public StatusAtendimentoEnum Status { get; protected set; }
+        public Especialidade? Especialidade { get; protected set; }
+        public Enfermeiro? Enfermeiro { get; protected set; }
+        public Medico? Medico { get; protected set; }
+        public Paciente Paciente { get; protected set; }
 
         public Atendimento() { }
-        public Atendimento(string queixa, string? diagnostico, int status, Especialidade especialidade, Enfermeiro enfermeiro, Medico medico)
+        public Atendimento(string queixa, Paciente paciente)
         {
             Data = DateTime.Now;
+            Status = StatusAtendimentoEnum.Aberto;
             SetQueixa(queixa);
-            SetDiagnostico(diagnostico);
-            SetStatus(status);
-            SetEspecialidade(especialidade);
-            SetEnfermeiro(enfermeiro);
-            SetMedico(medico);
+            SetPaciente(paciente);
         }
 
         public void SetQueixa(string value)
@@ -43,10 +41,8 @@ namespace StackGestaoDeHospital.Model
             Diagnostico = value;
         }
 
-        public void SetStatus(int value)
+        public void SetStatus(StatusAtendimentoEnum value)
         {
-            if (value < 0)
-                throw new ArgumentOutOfRangeException(nameof(Status), "Status deve ser maior ou igual a zero.");
             Status = value;
         }
 
@@ -63,6 +59,11 @@ namespace StackGestaoDeHospital.Model
         public void SetMedico(Medico value)
         {
             Medico = value ?? throw new ArgumentNullException(nameof(Medico));
+        }
+
+        public void SetPaciente(Paciente value)
+        {
+            Paciente = value ?? throw new ArgumentNullException(nameof(Paciente));
         }
 
     }

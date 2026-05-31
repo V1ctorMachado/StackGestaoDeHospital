@@ -23,8 +23,15 @@ namespace StackGestaoDeHospital.View
     /// </summary>
     public partial class MainWindow : Window
     {
-        public ObservableCollection<Departamento> ListaDepartamentos { get; set; } = new();
-        public Departamento DepartamentoSelecionado { get; set; }
+        public ObservableCollection<Atendimento> AtendimentosAguardando { get; set; } = new();
+        public ObservableCollection<Atendimento> AtendimentosTriagem { get; set; } = new();
+        public ObservableCollection<Atendimento> AtendimentosEmAtendimento { get; set; } = new();
+        public ObservableCollection<Atendimento> AtendimentosFinalizados { get; set; } = new();
+
+        public ObservableCollection<Departamento> Departamentos { get; set; } = new();
+        public Departamento? DepartamentoSelecionado { get; set; }
+
+        public ICommand ProsseguirCommand { get; set; }
 
         // Controllers
         private DepartamentosController departamentosController { get; set; }
@@ -40,7 +47,18 @@ namespace StackGestaoDeHospital.View
         public void Inicializar()
         {
             var departamentos = departamentosController.GetAllDepartamentos();
-            ListaDepartamentos.Replace(departamentos);
+            TrazerAtendimentosFalsos();
+            Departamentos.Replace(departamentos);
+        }
+
+        private void TrazerAtendimentosFalsos()
+        {
+            Paciente pacienteFalso = new Paciente(1, "Victor", "Machado", "12345678900", new DateTime(2005, 01, 01), "123456789", "Plano X");
+
+
+            var atendimentoFalso = new Atendimento("Reprovou 7 vezes", pacienteFalso);
+
+            AtendimentosAguardando.Add(atendimentoFalso);
         }
     }
 }

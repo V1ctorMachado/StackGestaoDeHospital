@@ -29,23 +29,27 @@ namespace StackGestaoDeHospital.DataBase.Configurations
                 .HasMaxLength(1000);
 
             builder.Property(atendimento => atendimento.Status)
+                .HasDefaultValue(StatusAtendimentoEnum.Aberto)
                 .IsRequired();
 
             builder.HasOne(atendimento => atendimento.Especialidade)
                 .WithMany()
                 .HasForeignKey("EspecialidadeId")
-                .IsRequired()
                 .OnDelete(DeleteBehavior.Restrict);
 
             builder.HasOne(atendimento => atendimento.Enfermeiro)
                 .WithMany()
                 .HasForeignKey("EnfermeiroId")
-                .IsRequired()
                 .OnDelete(DeleteBehavior.Restrict);
 
             builder.HasOne(atendimento => atendimento.Medico)
                 .WithMany()
                 .HasForeignKey("MedicoId")
+                .OnDelete(DeleteBehavior.Restrict);
+            
+            builder.HasOne(atendimento => atendimento.Paciente)
+                .WithMany()
+                .HasForeignKey("PacienteId")
                 .IsRequired()
                 .OnDelete(DeleteBehavior.Restrict);
         }

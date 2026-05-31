@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using StackGestaoDeHospital.DataBase;
 
@@ -11,9 +12,11 @@ using StackGestaoDeHospital.DataBase;
 namespace StackGestaoDeHospital.DataBase.Migrations
 {
     [DbContext(typeof(HospitalDbContext))]
-    partial class HospitalDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260531153604_CorrecaoAtendimento")]
+    partial class CorrecaoAtendimento
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -53,13 +56,13 @@ namespace StackGestaoDeHospital.DataBase.Migrations
                         .HasMaxLength(1000)
                         .HasColumnType("nvarchar(1000)");
 
-                    b.Property<int?>("EnfermeiroId")
+                    b.Property<int>("EnfermeiroId")
                         .HasColumnType("int");
 
                     b.Property<int>("EspecialidadeId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("MedicoId")
+                    b.Property<int>("MedicoId")
                         .HasColumnType("int");
 
                     b.Property<int>("PacienteId")
@@ -71,9 +74,7 @@ namespace StackGestaoDeHospital.DataBase.Migrations
                         .HasColumnType("nvarchar(500)");
 
                     b.Property<int>("Status")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasDefaultValue(1);
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -248,7 +249,8 @@ namespace StackGestaoDeHospital.DataBase.Migrations
                     b.HasOne("StackGestaoDeHospital.Model.Enfermeiro", "Enfermeiro")
                         .WithMany()
                         .HasForeignKey("EnfermeiroId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.HasOne("StackGestaoDeHospital.Model.Especialidade", "Especialidade")
                         .WithMany()
@@ -259,7 +261,8 @@ namespace StackGestaoDeHospital.DataBase.Migrations
                     b.HasOne("StackGestaoDeHospital.Model.Medico", "Medico")
                         .WithMany()
                         .HasForeignKey("MedicoId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.HasOne("StackGestaoDeHospital.Model.Paciente", "Paciente")
                         .WithMany()

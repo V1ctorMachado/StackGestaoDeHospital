@@ -6,16 +6,16 @@ namespace StackGestaoDeHospital.Model
 {
     public class Medico : Funcionario
     {
+        public Medico(int id, string nome, string sobrenome, string cPF, DateTime dataNascimento, string matricula, decimal salario, string cRM, IList<Especialidade> especialidades) : base(id, nome, sobrenome, cPF, dataNascimento, matricula, salario)
+        {
+            SetCrm(cRM);
+            SetEspecialidades(especialidades);
+        }
 
         public string CRM { get; set; }
         public IList<Especialidade> Especialidades { get; set; } = new List<Especialidade>();
 
-        public Medico() {}
-        public Medico(string crm, IList<Especialidade> especialidades)
-        {
-            SetCrm(crm);
-            SetEspecialidades(especialidades);
-        }
+       
 
         public void SetEspecialidades(IList<Especialidade> especialidades)
         {
