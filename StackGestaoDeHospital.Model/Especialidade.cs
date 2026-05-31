@@ -4,9 +4,9 @@ using System.Text;
 
 namespace StackGestaoDeHospital.Model
 {
-    class Especialidade
+    public class Especialidade
     {
         public int Id { get; set; }
-        public string Descricao { get; set; }
+        public string Descricao { get; set; } = string.Empty;
     }
 }
