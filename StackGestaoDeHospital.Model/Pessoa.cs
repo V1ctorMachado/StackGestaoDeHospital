@@ -6,6 +6,10 @@ namespace StackGestaoDeHospital.Model
 {
     public abstract class Pessoa
     {
+        protected Pessoa()
+        {
+            
+        }
         protected Pessoa(int id, string nome, string sobrenome, string cPF, DateTime dataNascimento)
         {
             Id = id;

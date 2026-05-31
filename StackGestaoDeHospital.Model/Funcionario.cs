@@ -6,6 +6,10 @@ namespace StackGestaoDeHospital.Model
 {
     public abstract class Funcionario : Pessoa
     {
+        protected Funcionario()
+        {
+            
+        }
         protected Funcionario(int id, string nome, string sobrenome, string cPF, DateTime dataNascimento, string matricula, decimal salario) : base(id, nome, sobrenome, cPF, dataNascimento)
         {
             Matricula = matricula;
