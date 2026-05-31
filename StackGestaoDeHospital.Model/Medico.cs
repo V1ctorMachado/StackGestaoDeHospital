@@ -8,9 +8,11 @@ namespace StackGestaoDeHospital.Model
     {
 
         public string CRM { get; set; }
-        public Medico(string crm)
+        public Especialidade Especialidade { get; set; }
+        public Medico(string crm, Especialidade especialidade)
         {
             CRM = crm;
+            Especialidade = especialidade;
         }
     }
 }
