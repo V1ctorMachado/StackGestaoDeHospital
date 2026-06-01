@@ -52,6 +52,12 @@ namespace StackGestaoDeHospital.DataBase.Configurations
                 .HasForeignKey("PacienteId")
                 .IsRequired()
                 .OnDelete(DeleteBehavior.Restrict);
+
+            builder.HasOne(atendimento => atendimento.Departamento)
+                .WithMany()
+                .HasForeignKey("DepartamentoId")
+                .IsRequired()
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

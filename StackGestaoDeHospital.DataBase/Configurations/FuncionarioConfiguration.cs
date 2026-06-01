@@ -22,6 +22,11 @@ namespace StackGestaoDeHospital.DataBase.Configurations
             builder.Property(funcionario => funcionario.Salario)
                 .HasColumnType("decimal(10,2)")
                 .IsRequired();
+            builder.HasOne(funcionario => funcionario.Departamento)
+                .WithMany()
+                .HasForeignKey("DepartamentoId")
+                .IsRequired()
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

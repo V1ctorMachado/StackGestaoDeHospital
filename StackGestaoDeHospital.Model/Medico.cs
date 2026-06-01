@@ -11,7 +11,10 @@ namespace StackGestaoDeHospital.Model
             
         }
 
-        public Medico(int id, string nome, string sobrenome, string cPF, DateTime dataNascimento, string matricula, decimal salario, string cRM, IList<Especialidade> especialidades) : base(id, nome, sobrenome, cPF, dataNascimento, matricula, salario)
+        public Medico(int id, string nome, string sobrenome, string cPF, DateTime dataNascimento,
+                      string matricula, decimal salario, Departamento departamento,
+                      string cRM, IList<Especialidade> especialidades)
+            : base(id, nome, sobrenome, cPF, dataNascimento, matricula, salario, departamento)
         {
             SetCrm(cRM);
             SetEspecialidades(especialidades);

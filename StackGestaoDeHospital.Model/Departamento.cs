@@ -1,12 +1,31 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace StackGestaoDeHospital.Model
 {
     public class Departamento
     {
-        public int Id { get; set; }
-        public string Nome { get; set; } = string.Empty;
+        protected Departamento()
+        {
+
+        }
+
+        public Departamento(string nome)
+        {
+            SetNome(nome);
+        }
+
+        public int Id { get; protected set; }
+        public string Nome { get; protected set; } = string.Empty;
+        public IList<Funcionario> Funcionarios { get; protected set; } = new List<Funcionario>();
+
+        public void SetNome(string value)
+        {
+            if (string.IsNullOrWhiteSpace(value))
+                throw new ArgumentException("Nome não pode ser vazio.", nameof(Nome));
+            if (value.Length > 100)
+                throw new ArgumentException("Nome muito grande", nameof(Nome));
+            Nome = value.Trim();
+        }
     }
 }

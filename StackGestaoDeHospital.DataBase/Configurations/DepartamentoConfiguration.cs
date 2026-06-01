@@ -10,14 +10,17 @@ namespace StackGestaoDeHospital.DataBase.Configurations
         {
             builder.ToTable("Departamento");
 
-            builder.HasKey(d => d.Id);
+            builder.HasKey(Departamento => Departamento.Id);
 
-            builder.Property(d => d.Id)
+            builder.Property(Departamento => Departamento.Id)
                 .ValueGeneratedOnAdd();
 
-            builder.Property(d => d.Nome)
+            builder.Property(Departamento => Departamento.Nome)
                 .HasMaxLength(100)
                 .IsRequired();
+
+ 
+
         }
     }
 }

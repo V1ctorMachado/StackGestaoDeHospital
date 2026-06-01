@@ -13,16 +13,18 @@ namespace StackGestaoDeHospital.Model
         public StatusAtendimentoEnum Status { get; protected set; }
         public Especialidade? Especialidade { get; protected set; }
         public Enfermeiro? Enfermeiro { get; protected set; }
+        public Departamento Departamento { get; protected set; }
         public Medico? Medico { get; protected set; }
         public Paciente Paciente { get; protected set; }
 
         public Atendimento() { }
-        public Atendimento(string queixa, Paciente paciente)
+        public Atendimento(string queixa, Paciente paciente, Departamento departamento)
         {
             Data = DateTime.Now;
             Status = StatusAtendimentoEnum.Aberto;
             SetQueixa(queixa);
             SetPaciente(paciente);
+            Departamento = departamento;
         }
 
         public void SetQueixa(string value)
@@ -58,7 +60,22 @@ namespace StackGestaoDeHospital.Model
 
         public void SetMedico(Medico value)
         {
-            Medico = value ?? throw new ArgumentNullException(nameof(Medico));
+            if (value == null)
+                throw new ArgumentNullException(nameof(Medico));
+
+            if (!value.Especialidades.Contains(Especialidade))
+            {
+                throw new ArgumentException("Médico não possui a especialidade necessária para este atendimento.", nameof(Medico));
+            }
+
+            if (value.Departamento != Departamento)
+            {
+                throw new ArgumentException("Médico não pertence ao departamento deste atendimento.", nameof(Medico));
+            }
+
+            Medico = value;
+
+            
         }
 
         public void SetPaciente(Paciente value)

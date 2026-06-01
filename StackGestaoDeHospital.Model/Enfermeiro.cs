@@ -10,7 +10,10 @@ namespace StackGestaoDeHospital.Model
         {
             
         }
-        public Enfermeiro(int id, string nome, string sobrenome, string cPF, DateTime dataNascimento, string matricula, decimal salario, string cRE) : base(id, nome, sobrenome, cPF, dataNascimento, matricula, salario)
+        public Enfermeiro(int id, string nome, string sobrenome, string cPF, DateTime dataNascimento,
+                          string matricula, decimal salario, Departamento departamento,
+                          string cRE)
+            : base(id, nome, sobrenome, cPF, dataNascimento, matricula, salario, departamento)
         {
             CRE = cRE;
         }
