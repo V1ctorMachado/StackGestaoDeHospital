@@ -17,7 +17,7 @@ namespace StackGestaoDeHospital.Model
 
         public int Id { get; protected set; }
         public string Nome { get; protected set; } = string.Empty;
-        public IList<Funcionario> Funcionarios { get; protected set; } = new List<Funcionario>();
+        public virtual IList<Funcionario> Funcionarios { get; set; } = new List<Funcionario>();
 
         public void SetNome(string value)
         {

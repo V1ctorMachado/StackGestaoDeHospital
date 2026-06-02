@@ -23,7 +23,7 @@
             <Setter Property="Background" Value="#151515"/>
             <Setter Property="Padding" Value="8"/>
             <Setter Property="Margin" Value="12,0"/>
-            <Setter Property="MinHeight" Value="520"/>
+            <Setter Property="VerticalAlignment" Value="Stretch"/>
         </Style>
 
         <Style x:Key="CardAtendimentoStyle" TargetType="Border">
@@ -58,15 +58,19 @@
         </Style>
 
         <Style x:Key="ComboDepartamentoStyle" TargetType="ComboBox">
-            <Setter Property="Background" Value="#151515"/>
-            <Setter Property="Foreground" Value="#F5F5F5"/>
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="Foreground" Value="Black"/>
             <Setter Property="BorderBrush" Value="#555"/>
             <Setter Property="BorderThickness" Value="1"/>
             <Setter Property="Height" Value="38"/>
             <Setter Property="Padding" Value="8,0"/>
         </Style>
 
-        <!-- Template reutilizável do card -->
+        <Style TargetType="ComboBoxItem">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="Foreground" Value="Black"/>
+        </Style>
+
         <DataTemplate x:Key="AtendimentoCardTemplate">
             <Border Style="{StaticResource CardAtendimentoStyle}">
                 <Grid>
@@ -87,23 +91,31 @@
                                FontWeight="SemiBold"/>
 
                     <TextBlock Grid.Row="1"
-                               Text="{Binding Paciente.Nome, StringFormat=Paciente: {0}}"
-                               Style="{StaticResource TextoCardMenorStyle}"/>
+                               Style="{StaticResource TextoCardMenorStyle}">
+                        <Run Text="Paciente: "/>
+                        <Run Text="{Binding Paciente.NomeCompleto, Mode=OneWay, TargetNullValue='-', FallbackValue='-'}"/>
+                    </TextBlock>
 
                     <TextBlock Grid.Row="2"
-                               Text="{Binding Especialidade.Descricao, StringFormat=Especialidade: {0}}"
-                               Style="{StaticResource TextoCardMenorStyle}"/>
+                               Style="{StaticResource TextoCardMenorStyle}">
+                        <Run Text="Especialidade: "/>
+                        <Run Text="{Binding Especialidade.Descricao, TargetNullValue='-', FallbackValue='-'}"/>
+                    </TextBlock>
 
                     <TextBlock Grid.Row="3"
-                               Text="{Binding Medico.Nome, StringFormat=Médico: {0}}"
-                               Style="{StaticResource TextoCardMenorStyle}"/>
+                               Style="{StaticResource TextoCardMenorStyle}">
+                        <Run Text="Médico: "/>
+                        <Run Text="{Binding Medico.NomeCompleto, Mode=OneWay, TargetNullValue='-', FallbackValue='-'}"/>
+                    </TextBlock>
 
                     <TextBlock Grid.Row="4"
-                               Text="{Binding Enfermeiro.Nome, StringFormat=Enfermeiro: {0}}"
-                               Style="{StaticResource TextoCardMenorStyle}"/>
+                               Style="{StaticResource TextoCardMenorStyle}">
+                        <Run Text="Enfermeiro: "/>
+                        <Run Text="{Binding Enfermeiro.NomeCompleto, Mode=OneWay, TargetNullValue='-', FallbackValue='-'}"/>
+                    </TextBlock>
 
                     <TextBlock Grid.Row="5"
-                               Text="{Binding Queixa, StringFormat=Queixa: {0}}"
+                               Text="{Binding Queixa, StringFormat=Queixa: {0}, TargetNullValue='-', FallbackValue='-'}"
                                Style="{StaticResource TextoCardMenorStyle}"
                                TextWrapping="Wrap"/>
 
@@ -117,8 +129,8 @@
                             Style="{StaticResource BotaoProsseguirStyle}"
                             HorizontalAlignment="Right"
                             Margin="0,8,0,0"
-                            Command="{Binding DataContext.ProsseguirCommand, RelativeSource={RelativeSource AncestorType=Window}}"
-                            CommandParameter="{Binding}"/>
+                            CommandParameter="{Binding}"
+                            Click="ProsseguirAtendimento"/>
                 </Grid>
             </Border>
         </DataTemplate>
@@ -146,74 +158,114 @@
                            FontWeight="SemiBold"
                            Margin="4,0,0,6"/>
 
-                <ComboBox Style="{StaticResource ComboDepartamentoStyle}"
+                <ComboBox x:Name="ComboDepartamento"
+                          Style="{StaticResource ComboDepartamentoStyle}"
                           ItemsSource="{Binding Departamentos}"
                           SelectedItem="{Binding DepartamentoSelecionado}"
-                          DisplayMemberPath="Nome"/>
+                          DisplayMemberPath="Nome"
+                          SelectionChanged="ChangeDepartamento"/>
             </StackPanel>
         </Grid>
 
-        <!-- Quadro Kanban -->
-        <Grid Grid.Row="1">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
+        <!-- Quadro Kanban com scroll horizontal -->
+        <ScrollViewer Grid.Row="1"
+                      HorizontalScrollBarVisibility="Auto"
+                      VerticalScrollBarVisibility="Disabled">
 
-            <!-- Aguardando -->
-            <StackPanel Grid.Column="0">
-                <TextBlock Text="Aguardando"
-                           Style="{StaticResource TituloColunaStyle}"/>
+            <Grid MinWidth="1100">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="275"/>
+                    <ColumnDefinition Width="275"/>
+                    <ColumnDefinition Width="275"/>
+                    <ColumnDefinition Width="275"/>
+                </Grid.ColumnDefinitions>
 
-                <Border Style="{StaticResource ColunaKanbanStyle}">
-                    <ScrollViewer VerticalScrollBarVisibility="Auto">
-                        <ItemsControl ItemsSource="{Binding AtendimentosAguardando}"
-                                      ItemTemplate="{StaticResource AtendimentoCardTemplate}"/>
-                    </ScrollViewer>
-                </Border>
-            </StackPanel>
+                <!-- Aguardando -->
+                <Grid Grid.Column="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
 
-            <!-- Triagem -->
-            <StackPanel Grid.Column="1">
-                <TextBlock Text="Triagem"
-                           Style="{StaticResource TituloColunaStyle}"/>
+                    <TextBlock Grid.Row="0"
+                               Text="Aguardando"
+                               Style="{StaticResource TituloColunaStyle}"/>
 
-                <Border Style="{StaticResource ColunaKanbanStyle}">
-                    <ScrollViewer VerticalScrollBarVisibility="Auto">
-                        <ItemsControl ItemsSource="{Binding AtendimentosTriagem}"
-                                      ItemTemplate="{StaticResource AtendimentoCardTemplate}"/>
-                    </ScrollViewer>
-                </Border>
-            </StackPanel>
+                    <Border Grid.Row="1"
+                            Style="{StaticResource ColunaKanbanStyle}">
+                        <ScrollViewer VerticalScrollBarVisibility="Auto"
+                                      HorizontalScrollBarVisibility="Disabled">
+                            <ItemsControl ItemsSource="{Binding AtendimentosAguardando}"
+                                          ItemTemplate="{StaticResource AtendimentoCardTemplate}"/>
+                        </ScrollViewer>
+                    </Border>
+                </Grid>
 
-            <!-- Em atendimento -->
-            <StackPanel Grid.Column="2">
-                <TextBlock Text="Em atendimento"
-                           Style="{StaticResource TituloColunaStyle}"/>
+                <!-- Triagem -->
+                <Grid Grid.Column="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
 
-                <Border Style="{StaticResource ColunaKanbanStyle}">
-                    <ScrollViewer VerticalScrollBarVisibility="Auto">
-                        <ItemsControl ItemsSource="{Binding AtendimentosEmAtendimento}"
-                                      ItemTemplate="{StaticResource AtendimentoCardTemplate}"/>
-                    </ScrollViewer>
-                </Border>
-            </StackPanel>
+                    <TextBlock Grid.Row="0"
+                               Text="Triagem"
+                               Style="{StaticResource TituloColunaStyle}"/>
 
-            <!-- Finalizado -->
-            <StackPanel Grid.Column="3">
-                <TextBlock Text="Finalizado"
-                           Style="{StaticResource TituloColunaStyle}"/>
+                    <Border Grid.Row="1"
+                            Style="{StaticResource ColunaKanbanStyle}">
+                        <ScrollViewer VerticalScrollBarVisibility="Auto"
+                                      HorizontalScrollBarVisibility="Disabled">
+                            <ItemsControl ItemsSource="{Binding AtendimentosTriagem}"
+                                          ItemTemplate="{StaticResource AtendimentoCardTemplate}"/>
+                        </ScrollViewer>
+                    </Border>
+                </Grid>
 
-                <Border Style="{StaticResource ColunaKanbanStyle}">
-                    <ScrollViewer VerticalScrollBarVisibility="Auto">
-                        <ItemsControl ItemsSource="{Binding AtendimentosFinalizados}"
-                                      ItemTemplate="{StaticResource AtendimentoCardTemplate}"/>
-                    </ScrollViewer>
-                </Border>
-            </StackPanel>
+                <!-- Em atendimento -->
+                <Grid Grid.Column="2">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
 
-        </Grid>
+                    <TextBlock Grid.Row="0"
+                               Text="Em atendimento"
+                               Style="{StaticResource TituloColunaStyle}"/>
+
+                    <Border Grid.Row="1"
+                            Style="{StaticResource ColunaKanbanStyle}">
+                        <ScrollViewer VerticalScrollBarVisibility="Auto"
+                                      HorizontalScrollBarVisibility="Disabled">
+                            <ItemsControl ItemsSource="{Binding AtendimentosEmAtendimento}"
+                                          ItemTemplate="{StaticResource AtendimentoCardTemplate}"/>
+                        </ScrollViewer>
+                    </Border>
+                </Grid>
+
+                <!-- Finalizado -->
+                <Grid Grid.Column="3">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Grid.Row="0"
+                               Text="Finalizado"
+                               Style="{StaticResource TituloColunaStyle}"/>
+
+                    <Border Grid.Row="1"
+                            Style="{StaticResource ColunaKanbanStyle}">
+                        <ScrollViewer VerticalScrollBarVisibility="Auto"
+                                      HorizontalScrollBarVisibility="Disabled">
+                            <ItemsControl ItemsSource="{Binding AtendimentosFinalizados}"
+                                          ItemTemplate="{StaticResource AtendimentoCardTemplate}"/>
+                        </ScrollViewer>
+                    </Border>
+                </Grid>
+
+            </Grid>
+        </ScrollViewer>
+
     </Grid>
 </Window>

@@ -8,7 +8,7 @@ namespace StackGestaoDeHospital.Model
     {
         public Medico()
         {
-            
+
         }
 
         public Medico(int id, string nome, string sobrenome, string cPF, DateTime dataNascimento,
@@ -21,9 +21,9 @@ namespace StackGestaoDeHospital.Model
         }
 
         public string CRM { get; set; }
-        public IList<Especialidade> Especialidades { get; set; } = new List<Especialidade>();
+        public virtual IList<Especialidade> Especialidades { get; set; } = new List<Especialidade>();
 
-       
+
 
         public void SetEspecialidades(IList<Especialidade> especialidades)
         {

@@ -2,8 +2,10 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using StackGestaoDeHospital.DataBase;
+using StackGestaoDeHospital.View.Views.Handlers;
 using System.IO;
 using System.Windows;
+using System.Windows.Threading;
 
 namespace StackGestaoDeHospital.View
 {
@@ -26,6 +28,8 @@ namespace StackGestaoDeHospital.View
 
             var mainWindow = new MainWindow();
             mainWindow.Show();
+
+            DispatcherUnhandledException += HandleExcecao;
         }
 
         private void ConfigureDBContext()
@@ -33,6 +37,7 @@ namespace StackGestaoDeHospital.View
             var connectionString = Configuration.GetConnectionString("DefaultConnection");
 
             var options = new DbContextOptionsBuilder<HospitalDbContext>()
+                .UseLazyLoadingProxies()
                 .UseSqlServer(connectionString)
                 .Options;
 
@@ -45,6 +50,12 @@ namespace StackGestaoDeHospital.View
                 .SetBasePath(Directory.GetCurrentDirectory())
                 .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
                 .Build();
+        }
+
+        private void HandleExcecao(object sender, DispatcherUnhandledExceptionEventArgs e)
+        {
+            ExceptionHandler.Show(e.Exception);
+            e.Handled = true;
         }
     }
 

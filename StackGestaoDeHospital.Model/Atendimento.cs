@@ -11,11 +11,11 @@ namespace StackGestaoDeHospital.Model
         public string Queixa { get; protected set; }
         public string? Diagnostico { get; protected set; }
         public StatusAtendimentoEnum Status { get; protected set; }
-        public Especialidade? Especialidade { get; protected set; }
-        public Enfermeiro? Enfermeiro { get; protected set; }
-        public Departamento Departamento { get; protected set; }
-        public Medico? Medico { get; protected set; }
-        public Paciente Paciente { get; protected set; }
+        public virtual Especialidade? Especialidade { get; set; }
+        public virtual Enfermeiro? Enfermeiro { get; set; }
+        public virtual Departamento Departamento { get; set; }
+        public virtual Medico? Medico { get; set; }
+        public virtual Paciente Paciente { get; set; }
 
         public Atendimento() { }
         public Atendimento(string queixa, Paciente paciente, Departamento departamento)
@@ -75,7 +75,7 @@ namespace StackGestaoDeHospital.Model
 
             Medico = value;
 
-            
+
         }
 
         public void SetPaciente(Paciente value)

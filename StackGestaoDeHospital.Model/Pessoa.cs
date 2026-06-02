@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace StackGestaoDeHospital.Model
@@ -24,6 +25,9 @@ namespace StackGestaoDeHospital.Model
         public string Sobrenome { get; set; } = string.Empty;
         public string CPF { get; set; } = string.Empty;
         public DateTime DataNascimento { get; set; }
+
+        [NotMapped]
+        public string NomeCompleto => $"{Nome} {Sobrenome}".Trim();
 
 
     }

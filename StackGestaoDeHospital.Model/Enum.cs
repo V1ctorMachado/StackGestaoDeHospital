@@ -4,14 +4,14 @@ using System.Text;
 
 namespace StackGestaoDeHospital.Model
 {
-    public enum Sexo
+    public enum SexoEnum
     {
         Masculino = 1,
         Feminino = 2,
         Outro = 3
     }
 
-    public enum TipoSanguineo
+    public enum TipoSanguineoEnum
     {
         APositivo = 1,
         ANegativo = 2,
@@ -29,28 +29,5 @@ namespace StackGestaoDeHospital.Model
         EmTriagem = 2,
         EmAtendimento = 3,
         Concluido = 4
-    }
-
-    public enum TipoLeito
-    {
-        Enfermaria = 1,
-        Apartamento = 2,
-        UTI = 3,
-        CTI = 4
-    }
-
-    public enum StatusInternacao
-    {
-        Ativa = 1,
-        AltaConcedida = 2,
-        Obito = 3,
-        Transferida = 4
-    }
-
-    public enum StatusExame
-    {
-        Solicitado = 1,
-        Realizado = 2,
-        Cancelado = 3
     }
 }
