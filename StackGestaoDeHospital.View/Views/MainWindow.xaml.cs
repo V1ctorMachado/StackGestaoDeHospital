@@ -31,7 +31,7 @@ namespace StackGestaoDeHospital.View
         public ObservableCollection<Departamento> Departamentos { get; set; } = new();
 
         // Variaveis de estado
-        private Departamento? DepartamentoSelecionado { get; set; }
+        public Departamento? DepartamentoSelecionado { get; set; }
 
         // Controllers
         private DepartamentosController departamentosController { get; set; }
@@ -56,7 +56,9 @@ namespace StackGestaoDeHospital.View
         {
             var departamentos = departamentosController.GetAllDepartamentos();
             Departamentos.Replace(departamentos);
-            ComboDepartamento.SelectedItem = departamentos.FirstOrDefault();
+            var primeiro = departamentos.FirstOrDefault();
+            DepartamentoSelecionado = primeiro;
+            ComboDepartamento.SelectedItem = primeiro;
         }
 
         private void ChangeDepartamento(object sender, SelectionChangedEventArgs e)
@@ -71,6 +73,15 @@ namespace StackGestaoDeHospital.View
 
         private void ListarAtendimentos()
         {
+            if (DepartamentoSelecionado == null)
+            {
+                AtendimentosAguardando.Clear();
+                AtendimentosEmAtendimento.Clear();
+                AtendimentosTriagem.Clear();
+                AtendimentosFinalizados.Clear();
+                return;
+            }
+
             AtendimentosAguardando.Replace(atendimentosController.GetAtendimentos(DepartamentoSelecionado.Id, StatusAtendimentoEnum.Aberto));
             AtendimentosEmAtendimento.Replace(atendimentosController.GetAtendimentos(DepartamentoSelecionado.Id, StatusAtendimentoEnum.EmAtendimento));
             AtendimentosTriagem.Replace(atendimentosController.GetAtendimentos(DepartamentoSelecionado.Id, StatusAtendimentoEnum.EmTriagem));
@@ -88,6 +99,12 @@ namespace StackGestaoDeHospital.View
             {
                 case StatusAtendimentoEnum.Aberto:
 
+                    if (DepartamentoSelecionado == null)
+                    {
+                        MessageBox.Show("Selecione um departamento antes de prosseguir.", "Atenção", MessageBoxButton.OK, MessageBoxImage.Warning);
+                        return;
+                    }
+
                     var enfermeiros = enfermeirosController.ListarDisponiveis(DepartamentoSelecionado.Id);
                     var modalEnfermeiros = new ModalSelecao("Selecionar enfermeiro", enfermeiros, "NomeCompletoMatricula");
                     modalEnfermeiros.ShowDialog();
@@ -104,7 +121,7 @@ namespace StackGestaoDeHospital.View
                     }
 
                     var medicos = medicosController.ListarDisponiveis(DepartamentoSelecionado.Id, atendimento.Especialidade.Id);
-                    var modalMedicos = new ModalSelecao("Selecionar médico", medicos, "NomeCompletoMatricula");
+                    var modalMedicos = new ModalSelecao("Selecionar médico", medicos, "NomeCompletoMatriculaEspecialidades");
                     modalMedicos.ShowDialog();
                     Medico medico = modalMedicos.ItemSelecionado as Medico;
 
