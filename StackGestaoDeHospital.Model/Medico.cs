@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Linq;
 
 namespace StackGestaoDeHospital.Model
 {
@@ -22,6 +23,10 @@ namespace StackGestaoDeHospital.Model
 
         public string CRM { get; set; }
         public virtual IList<Especialidade> Especialidades { get; set; } = new List<Especialidade>();
+
+
+        [System.ComponentModel.DataAnnotations.Schema.NotMapped]
+        public string EspecialidadesExibicao => string.Join(", ", Especialidades?.Select(e => e.Descricao) ?? Array.Empty<string>());
 
 
 

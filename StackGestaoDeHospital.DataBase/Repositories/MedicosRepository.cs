@@ -10,7 +10,7 @@ namespace StackGestaoDeHospital.DataBase.Repositories
         public IList<Medico> ListarDisponiveis(int idDepartamento, int idEspecialidade)
         {
             return _dbSet
-                .Where(m => m.Departamento.Id == idDepartamento && m.Especialidades.Select(e => e.Id).Contains(idEspecialidade))
+                .Where(m => m.Departamento.Id == idDepartamento && m.Especialidades.Select(e => e.Id).Contains(idEspecialidade) && m.Disponivel)
                 .ToList();
         }
     }

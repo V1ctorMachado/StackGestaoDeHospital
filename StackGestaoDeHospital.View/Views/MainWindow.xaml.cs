@@ -89,7 +89,7 @@ namespace StackGestaoDeHospital.View
                 case StatusAtendimentoEnum.Aberto:
 
                     var enfermeiros = enfermeirosController.ListarDisponiveis(DepartamentoSelecionado.Id);
-                    var modalEnfermeiros = new ModalSelecao("Selecionar enfermeiro", enfermeiros, "NomeCompleto");
+                    var modalEnfermeiros = new ModalSelecao("Selecionar enfermeiro", enfermeiros, "NomeCompletoMatricula");
                     modalEnfermeiros.ShowDialog();
                     Enfermeiro enfermeiro = modalEnfermeiros.ItemSelecionado as Enfermeiro;
 
@@ -104,7 +104,7 @@ namespace StackGestaoDeHospital.View
                     }
 
                     var medicos = medicosController.ListarDisponiveis(DepartamentoSelecionado.Id, atendimento.Especialidade.Id);
-                    var modalMedicos = new ModalSelecao("Selecionar médico", medicos, "NomeCompleto");
+                    var modalMedicos = new ModalSelecao("Selecionar médico", medicos, "NomeCompletoMatricula");
                     modalMedicos.ShowDialog();
                     Medico medico = modalMedicos.ItemSelecionado as Medico;
 
@@ -119,6 +119,18 @@ namespace StackGestaoDeHospital.View
                     MessageBox.Show("Atendimento já finalizado.");
                     break;
             }
+
+            ListarAtendimentos();
+        }
+
+        private void VisualizarAtendimento(object sender, RoutedEventArgs e)
+        {
+            Atendimento atendimento = (sender as Button).DataContext as Atendimento;
+
+
+
+            var modalAtendimento = new DetalhesAtendimento(atendimento);
+            modalAtendimento.ShowDialog();
 
             ListarAtendimentos();
         }

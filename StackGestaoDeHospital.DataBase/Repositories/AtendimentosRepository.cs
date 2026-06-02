@@ -15,7 +15,9 @@ namespace StackGestaoDeHospital.DataBase.Repositories
                 .Include(a => a.Enfermeiro)
                 .Include(a => a.Especialidade)
                 .Include(a => a.Departamento)
-                .Where(a => a.Departamento.Id == idDepartamento && a.Status == status).ToList();
+                .Where(a => a.Departamento.Id == idDepartamento && a.Status == status)
+                .OrderByDescending(a => a.Data)
+                .ToList();
         }
     }
 }

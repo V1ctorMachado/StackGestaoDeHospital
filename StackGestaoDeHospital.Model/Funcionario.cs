@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace StackGestaoDeHospital.Model
 {
@@ -22,6 +23,10 @@ namespace StackGestaoDeHospital.Model
         public decimal Salario { get; set; }
         public virtual Departamento Departamento { get; set; }
         public bool Disponivel { get; private set; }
+
+
+        [NotMapped]
+        public string NomeCompletoMatricula => $"{NomeCompleto} - {Matricula}".Trim();
 
 
         public void SetDisponivel(bool value)

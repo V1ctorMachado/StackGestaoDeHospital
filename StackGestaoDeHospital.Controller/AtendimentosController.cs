@@ -50,7 +50,7 @@ namespace StackGestaoDeHospital.Controller
 
         public void ProsseguirParaTriagem(Atendimento atendimento, Enfermeiro enfermeiro)
         {
-            if(enfermeiro == null)
+            if (enfermeiro == null)
                 return;
 
             atendimento.SetStatus(StatusAtendimentoEnum.EmTriagem);
@@ -58,6 +58,31 @@ namespace StackGestaoDeHospital.Controller
             enfermeirosController.AtualizarStatus(atendimento.Enfermeiro, false);
             atendimentosRepository.Update(atendimento);
 
+            hospitalDbContext.SaveChanges();
+        }
+
+        public void Update(Atendimento atendimento)
+        {
+            atendimentosRepository.Update(atendimento);
+            hospitalDbContext.SaveChanges();
+        }
+
+        public void EditarAtendimento(Atendimento atendimento, string? queixa, string? diagnostico, Especialidade? especialidade)
+        {
+            if(atendimento.Status != StatusAtendimentoEnum.Concluido)
+                atendimento.SetQueixa(queixa);
+
+            if(atendimento.Status == StatusAtendimentoEnum.EmTriagem)
+            {
+                atendimento.SetEspecialidade(especialidade);
+            }
+
+            if (atendimento.Status == StatusAtendimentoEnum.EmAtendimento)
+            {
+                atendimento.SetDiagnostico(diagnostico);
+            }
+
+            atendimentosRepository.Update(atendimento);
             hospitalDbContext.SaveChanges();
         }
     }
