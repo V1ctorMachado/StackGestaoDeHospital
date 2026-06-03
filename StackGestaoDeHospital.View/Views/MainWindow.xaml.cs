@@ -121,7 +121,7 @@ namespace StackGestaoDeHospital.View
                     }
 
                     var medicos = medicosController.ListarDisponiveis(DepartamentoSelecionado.Id, atendimento.Especialidade.Id);
-                    var modalMedicos = new ModalSelecao("Selecionar médico", medicos, "NomeCompletoMatriculaEspecialidades");
+                    var modalMedicos = new ModalSelecao("Selecionar médico", medicos, "NomeCompletoMatricula");
                     modalMedicos.ShowDialog();
                     Medico medico = modalMedicos.ItemSelecionado as Medico;
 
